@@ -13,9 +13,9 @@ async function genericOnClick(info) {
     if(res.status === 200) {
         let blob = await res.blob()
         const formData = new FormData()
-        const prefix = new Date()
+        const prefix = Date.now()
         // TODO：目前先写成png
-        formData.append("file",new File([blob],prefix + 'halo-chrome.png',{type:'image/png'}))
+        formData.append("file",new File([blob],`halo-chrome_${prefix}.png`,{type:'image/png'}))
         formData.append("policyName","default-policy")
         const data = await fetch("https://aifengliu.top/apis/api.console.halo.run/v1alpha1/attachments/upload",{
             method:'POST',
