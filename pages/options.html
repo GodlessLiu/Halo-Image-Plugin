@@ -18,6 +18,14 @@
             网站域名：
         </span>
         <input type="text" id="domain" placeholder="请输入网站域名..." class="input">
+        <span class="text">
+            文件名生成规则：
+        </span>
+        <select id="slugify" value="date">
+            <option value="date">根据日期</option>
+            <option value="uuid">根据uuid</option>
+            <option value="hash">根据图片url生产的hash值</option>
+        </select>
     </div>
     <button id="save">Save</button>
     <small id="status">

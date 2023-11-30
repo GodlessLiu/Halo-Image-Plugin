@@ -1,10 +1,15 @@
 function save_options() {
     var token = document.getElementById('token').value;
     var domain = document.getElementById('domain').value;
+    var slugify = document.getElementById('slugify').value;
     chrome.storage.sync.set({
         haloToken: token,
         haloDomain: domain,
+        haloSlugify: slugify,
     }, function () {
+        chrome.runtime.sendMessage({ mode: slugify }, function(response) {
+            console.log("Received response from background.js:", response);
+        });
         // Update status to let user know options were saved.
         var status = document.getElementById('status');
         status.textContent = 'Options saved.';
@@ -20,9 +25,11 @@ function restore_options() {
     chrome.storage.sync.get({
         haloToken: '',
         haloDomain: '',
+        haloSlugify: '',
     }, function (items) {
         document.getElementById('token').value = items.haloToken;
         document.getElementById('domain').value = items.haloDomain;
+        document.getElementById('slugify').value = items.haloSlugify;
     });
 }
 document.addEventListener('DOMContentLoaded', restore_options);
