@@ -1,7 +1,9 @@
 function save_options() {
     var token = document.getElementById('token').value;
+    var domain = document.getElementById('domain').value;
     chrome.storage.sync.set({
         haloToken: token,
+        haloDomain: domain,
     }, function () {
         // Update status to let user know options were saved.
         var status = document.getElementById('status');
@@ -17,8 +19,10 @@ function save_options() {
 function restore_options() {
     chrome.storage.sync.get({
         haloToken: '',
+        haloDomain: '',
     }, function (items) {
         document.getElementById('token').value = items.haloToken;
+        document.getElementById('domain').value = items.haloDomain;
     });
 }
 document.addEventListener('DOMContentLoaded', restore_options);

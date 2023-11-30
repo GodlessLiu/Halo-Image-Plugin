@@ -6,7 +6,7 @@
     "permissions": [
         "contextMenus", "storage","notifications"
     ],
-    "host_permissions":["https://aifengliu.top/*"],
+    "host_permissions":["https://*/*"],
     "background": {
       "service_worker": "background.js",
       "type": "module"
