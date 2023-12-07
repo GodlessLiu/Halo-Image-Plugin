@@ -97,3 +97,19 @@ export async function fetchImage(info, slugify) {
     return formData;
   }
 }
+
+export async function coverWithTry(fn, message) {
+  let data;
+  try {
+    data = await fn();
+  } catch (e) {
+    chrome.notifications.create({
+      type: 'basic',
+      title: 'Halo',
+      message,
+      iconUrl: 'icon.png',
+    });
+  } finally {
+    return data;
+  }
+}

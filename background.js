@@ -4,12 +4,6 @@ let token;
 let domain;
 let slugify;
 
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  generateConfig();
-  // 如果需要回复，可以使用 sendResponse
-  sendResponse({ message: 'Hello from background.js!' });
-});
-
 async function genericOnClick(info) {
   chrome.storage.sync.get(
     {
@@ -30,8 +24,29 @@ async function genericOnClick(info) {
         });
         return;
       }
-      const formData = await fetchImage(info, slugify);
-      await uploadToHalo(formData, domain, token);
+      let formData;
+      try {
+        formData = await fetchImage(info, slugify);
+      } catch (e) {
+        chrome.notifications.create({
+          type: 'basic',
+          title: 'Halo',
+          message: '获取图片失败，fetch不支持改url',
+          iconUrl: 'icon.png',
+        });
+        return;
+      }
+      try {
+        await uploadToHalo(formData, domain, token);
+      } catch (e) {
+        chrome.notifications.create({
+          type: 'basic',
+          title: 'Halo',
+          message: '上传图片失败',
+          iconUrl: 'icon.png',
+        });
+        return;
+      }
     }
   );
 }

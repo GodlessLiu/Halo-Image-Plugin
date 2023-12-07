@@ -1,21 +1,25 @@
 {
-    "manifest_version": 3,
-    "version":"0.0.1",
     "name": "Halo Image Plugin",
+    "version": "0.0.1",
     "description": "A chrome plugin to upload image to yout Halo attachment",
-    "permissions": [
-        "contextMenus", "storage","notifications"
-    ],
-    "host_permissions":["https://*/*"],
     "background": {
-      "service_worker": "background.js",
-      "type": "module"
+        "service_worker": "background.js",
+        "type": "module"
     },
-    "options_ui": {
-      "page": "pages/options.html",
-      "open_in_tab": false
-    },
+    "host_permissions": [
+      "<all_urls>"
+    ],
     "icons": {
-      "48": "icon.png"
-    }
+        "48": "icon.png"
+    },
+    "manifest_version": 3,
+    "options_ui": {
+        "open_in_tab": false,
+        "page": "pages/options.html"
+    },
+    "permissions": [
+        "contextMenus",
+        "storage",
+        "notifications"
+    ]
 }
